@@ -18,29 +18,21 @@ public class PublicacaoController {
 	@Autowired
 	private IPublicacaoService _publicacaoService;
 
-	@GetMapping
-	@ResponseBody
 	@RequestMapping(value = "/GetAll", method = RequestMethod.GET)
 	public ResponseEntity<?> GetAll() {
 		return ResponseEntity.ok().body(new ReturnObject(HttpStatus.OK.value(), _publicacaoService.listar().getBody(), null));
 	};
 
-	@GetMapping
-	@ResponseBody
 	@RequestMapping(value = "/AdicionarLike", method = RequestMethod.POST)
 	public ResponseEntity<?> AdicionarLike(@Valid @RequestBody PublicacaoDTO publicacao) {
 		return ResponseEntity.ok().body(new ReturnObject(HttpStatus.OK.value(), _publicacaoService.adicionarLike(publicacao.getId()), null));
 	}
 
-	@GetMapping
-	@ResponseBody
 	@RequestMapping(value = "/AdicionarPublicacao", method = RequestMethod.POST)
 	public ResponseEntity<?> AdicionarPublicacao(@Valid @RequestBody PublicacaoDTO publicacao) {
 		return ResponseEntity.ok().body(new ReturnObject(HttpStatus.OK.value(), _publicacaoService.adicionarPostagem(publicacao), null));
 	}
 
-	@GetMapping
-	@ResponseBody
 	@RequestMapping(value = "/DeletarPublicacao", method = RequestMethod.POST)
 	public ResponseEntity<?> DeletarPublicacao(@Valid @RequestBody PublicacaoDTO publicacao) {
 		return ResponseEntity.ok().body(new ReturnObject(HttpStatus.OK.value(), _publicacaoService.deletarPostagem(publicacao), null));
