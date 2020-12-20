@@ -1,19 +1,8 @@
 package br.com.publicacao.springboot.api.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "publicacao")
@@ -61,6 +50,16 @@ public class Publicacao implements Serializable {
 		this.dataPublicacao = dataPublicacao;
 	}
 
+	/**
+	 * Gets a builder which is used to create Person objects.
+	 * @param texto The texto created.
+	 * @param totalLikes  The totalLikes.
+	 * @return  A new Builder instance.
+	 */
+	public static Builder getBuilder(String texto, Integer totalLikes) {
+		return new Builder(texto, totalLikes);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,5 +83,28 @@ public class Publicacao implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public static class Builder {
+		Publicacao built;
+
+		/**
+		 * Creates a new Builder instance.
+		 * @param texto The texto created.
+		 * @param totalLikes  The totalLikes.
+		 */
+		Builder(String texto, Integer totalLikes) {
+			built = new Publicacao();
+			built.texto = texto;
+			built.totalLikes = totalLikes;
+		}
+
+		/**
+		 * Builds the new Person object.
+		 * @return  The created Person object.
+		 */
+		public Publicacao build() {
+			return built;
+		}
 	}
 }
